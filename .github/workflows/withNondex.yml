@@ -1,1 +1,21 @@
-
+name: Testing unit_test with Nondex tool.
+run-name: Testing unit_test with Nondex tool.
+on: [push]
+jobs:
+  Testing-without-Nondex:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Clone Project and Checkout
+      run: |
+        git clone https://github.com/apache/ignite-3
+        cd ignite-3
+        git checkout a1aa7fd4e2398c72827777ec5417d67915ff4da3
+    - name: Clean Install
+      run: |
+        cd ignite-3
+        mvn clean install -DskipTests -pl modules/sql-engine -am
+    - name: Run TestCase with nondex
+      run: |
+        cd ignite-3
+        mvn -pl modules/sql-engine edu.illinois:nondex-maven-plugin:2.1.1:nondex -Dtest=org.apache.ignite.internal.sql.engine.exec.MockedStructuresTest#testCreateTable
