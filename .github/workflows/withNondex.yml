@@ -2,7 +2,7 @@ name: Testing unit_test with Nondex tool.
 run-name: Testing unit_test with Nondex tool.
 on: [push]
 jobs:
-  Testing-without-Nondex:
+  Testing-with-Nondex:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
